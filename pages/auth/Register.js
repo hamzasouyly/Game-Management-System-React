@@ -52,7 +52,7 @@ function Register() {
   }
 
   return (
-    <div className='content-wrapper'>
+    <div className=''>
       <div className="container my-5 px-0 z-depth-1">
   {/*Section: Content*/}
   <section className="p-5 my-md-5 text-center" style={{backgroundImage: 'url(https://images5.alphacoders.com/120/1200625.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center'}}>

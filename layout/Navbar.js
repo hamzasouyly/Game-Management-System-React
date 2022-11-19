@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import Logout from '../pages/auth/Logout';
 function Navbar() {
   return (
     <div>
@@ -42,6 +43,8 @@ function Navbar() {
         </form>
       </div>
     </li>
+    {/* logout */}
+      <Logout />
     {/* Messages Dropdown Menu */}
     <li className="nav-item dropdown">
       <a className="nav-link" data-toggle="dropdown" href="!#">

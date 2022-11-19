@@ -23,9 +23,27 @@ import Login from './pages/auth/Login';
 import Roles from './pages/roles/Roles';
 import CreateRole from './pages/roles/CreateRole';
 import EditRole from './pages/roles/EditRole';
-import Showspell from './pages/Showspell';
+import NotFound from './pages/NotFound';
+
 
 function App() {
+
+  const token = localStorage.getItem('auth_token');
+
+  if(!token){
+    return (
+      <div>
+        <BrowserRouter>
+          <Routes>
+        {/* login logout */}
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    )
+  }
+
   return (
     
       <div className="App">
@@ -35,9 +53,7 @@ function App() {
         <Navbar />
         <Slider />
           <Routes>
-            {/* login logout */}
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            
             {/* dashboard */}
             <Route path="/" element={<Dashboard />} />
             {/* classes */}
@@ -50,7 +66,6 @@ function App() {
             <Route path="/spells" element={<Spells />} />
             <Route path="/CreateSpell" element={<CreateSpell />} />
             <Route path="/spell/edit/:slug" element={<EditSpell />} />
-            <Route path=":slug" element={<Showspell />} />
 
             {/* specialisation */}
             <Route path="/specialisations" element={<Specialisation />} />
@@ -60,6 +75,12 @@ function App() {
             <Route path="/roles" element={<Roles />} />
             <Route path="/CreateRole" element={<CreateRole />} />
             <Route path="/role/edit/:slug" element={<EditRole />} />
+
+            {/* 404 */}
+            <Route path="*" element={<NotFound />} />
+
+            
+
           </Routes>
         </BrowserRouter>
        

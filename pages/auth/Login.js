@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -27,34 +27,55 @@ const login = async (e) => {
 
     await axios.post(`http://127.0.0.1:8000/api/login/`, formData).then(({data})=>{
      console.log(data.message)
-     Swal.fire({
-      title: 'WOW',
-      text:   "You have been logged-in successfully",
-      });
-     navigate("/")
-    }).catch(({response})=>{
-      if(response.status===422){
-        console.log(response.data.errors)
-        Swal.fire({
-          title: 'OPPS',
-          text:   "Error 422",
-        
-      });
+
+     if (data.status === 200) {
+          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem('auth_name', data.name);
+      Swal.fire({
+        title: 'WOW',
+        text:   "You have been logged-in successfully",
+        });
+      if (data.role === 'admin') {
+      navigate("/")
       }else{
-        console.log(response.data.message)
-        Swal.fire({
-          title: 'OPPS',
-          text:   "Error",
-        
-      });
+        navigate("/classes")
       }
+      
+     }else{
+       Swal.fire({
+        title: 'OPPS',
+        text:   "Error : Invalid Credentiels",
+      });
+     }
+
+    //  Swal.fire({
+    //   title: 'WOW',
+    //   text:   "You have been logged-in successfully",
+    //   });
+    //  navigate("/")
+    // }).catch(({response})=>{
+    //   if(response.status===401){
+    //     console.log(response.data.errors)
+    //     Swal.fire({
+    //       title: 'OPPS',
+    //       text:   "Error 422",
+        
+    //   });
+    //   }else{
+    //     console.log(response.data.message)
+    //     Swal.fire({
+    //       title: 'OPPS',
+    //       text:   "Error",
+        
+    //   });
+    //   }
     })
 
    
   }
 
   return (
-    <div className='content-wrapper'>
+    <div className=''>
     <div className="container my-5 px-0 z-depth-1">
 {/*Section: Content*/}
 <section className="p-5 my-md-5 text-center" style={{backgroundImage: 'url(https://images5.alphacoders.com/120/1200625.jpg)', backgroundSize: 'cover', backgroundPosition: 'center center'}}>
